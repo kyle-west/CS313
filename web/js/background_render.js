@@ -10,6 +10,7 @@ _can.background('#3681f9');
 _scene = new RenderEngine(_can);
 _scene.framerate = 33; // in milliseconds
 
+
 obj0 = new Renderable(new Location(0,0,2,-3), function () {
    _scene.context.fillStyle = "red";
    _scene.context.fillRect(
