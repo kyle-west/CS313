@@ -5,7 +5,7 @@
 ?>
 <div>
    <h1 class = " block logo_text">
-      Lexifex &lt;<span>Code&nbsp;Builders</span>&gt;
+      Lexifex &lt;<span>Code&nbsp;Builders</span>&gt; <span class = "name"> by Kyle West</span>
    </h1>
    <div class="block nav">
       <ul>

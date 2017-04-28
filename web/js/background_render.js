@@ -1,9 +1,15 @@
+/************************************************************************
+* This script generates the "square fish" (as my wife calls it) in the
+* background
+/***********************************************************************/
+
 _can = new Screen(window.innerWidth,window.innerHeight);
 _can.setup();
 _can.centerOrigin();
 _can.background('#3681f9');
 _scene = new RenderEngine(_can);
-_scene.framerate = 33;
+_scene.framerate = 33; // in milliseconds
+
 obj0 = new Renderable(new Location(0,0,2,-3), function () {
    _scene.context.fillStyle = "red";
    _scene.context.fillRect(

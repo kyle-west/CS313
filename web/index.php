@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="utf-8"/>
-      <title>Lexifex</title>
-      <link rel="stylesheet" href="css/master.css"/>
-      <script src="js/three.min.js"></script>
-      <script type="text/javascript" src ='js/Engine/Render/renderengine.js'></script>
-      <script type="text/javascript" src ='js/Engine/Render/renderable.js'></script>
-      <script type="text/javascript" src ='js/Engine/Render/location.js'></script>
-      <script type="text/javascript" src ='js/Engine/Screen/screen.js'></script>
-      <script type="text/javascript" src ='js/Engine/Keyboard/keyboard.js'></script>
-
+      <?php require("head.php"); ?>
    </head>
    <body>
       <canvas id = "canvas">
@@ -37,22 +28,22 @@
             </p>
          </div>
          <div class="block_content">
-            <h1><i>"Nice words but I want proof..."</i></h1>
+            <h1><i>"Nice words, but I want proof..."</i></h1>
             <p>
-               We understand your stuggle to find quality engineers to manage your
-               products. Here are Lexifex, we believe the proof is in the pudding.
+               We understand your struggle to find quality engineers to manage your
+               products. Here are Lexifex, we believe the proof is in our pudding.
                Here are a few examples from our portfolio:
             </p>
             <ul>
-               <li><a href="#">
+               <li><a href="http://www.walkerrd.com/" target="_blank">
                   <img src="http://www.walkerrd.com/imgs/version2.png" alt="Walker Rugs Design"/>
                   Walker Rugs Design
                </a></li>
-               <li><a href="https://play.google.com/store/apps/details?id=com.forkboard.forkboard&hl=en">
+               <li><a href="https://play.google.com/store/apps/details?id=com.forkboard.forkboard&hl=en" target="_blank">
                   <img src="https://lh3.googleusercontent.com/xwyFLV4f1WglBN-EBzafCN8xb8_n5lHVrbvYC1qqXZo8-01PJtuTTYyvLFZ09uvzabPM=w300-rw" alt="ForkBoard"/>
-                  ForkBoard App
+                  &nbsp;ForkBoard App
                </a></li>
-               <li><a href="#">
+               <li><a href="http://mckenzieclarke.com/" target="_blank">
                   <img src="http://mckenzieclarke.com/imgs/mlogo2.png" alt="McKenzie Clarke Art Work"/>
                   McKenzie Clarke Art Work
                </a></li>
@@ -64,7 +55,6 @@
          <br/>
          <br/>
       </div>
-
 
       <script src="js/background_render.js"></script>
    </body>
