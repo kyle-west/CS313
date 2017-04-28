@@ -18,8 +18,12 @@
       </canvas>
 
       <div id = "main_container">
-         <h1>Lexifex</h1>
-         <h1>Code Builders</h1>
+         <div class = "nav">
+            <h1 class = "logo_text">
+               Lexifex &lt;<span>Code&nbsp;Builders</span>&gt;
+            </h1>
+
+         </div>
       </div>
 
 
