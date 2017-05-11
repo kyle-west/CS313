@@ -23,7 +23,7 @@ CREATE TABLE reviews (
    id         SERIAL  PRIMARY KEY              NOT NULL,
    doc_id     INTEGER REFERENCES documents(id) NOT NULL,
    reviewer   INTEGER REFERENCES users(id)     NOT NULL,
-   status     INTEGER DEFAULT 0                NOT NULL  -- Codes to delimit status 
+   status     INTEGER DEFAULT 0                NOT NULL  -- Codes to indicate status 
 );
 
 

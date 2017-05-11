@@ -1,0 +1,62 @@
+body {
+   margin: 0 auto;
+   display: block;
+}
+
+a {
+   color: inherit;
+}
+
+table.content {
+   position: fixed;
+   width: 100%;
+   height: 100%;
+}
+table.content td {
+   vertical-align: top;
+}
+
+#main_container {
+   background-color: tan;
+   width: 80%;
+}
+
+#nav {
+   background-color: #33475b;
+   width: 20%;
+   min-width: 200px;
+   max-width: 300px;
+}
+
+#nav p {
+   color: white;
+   text-align: center;
+   font-size: 9pt;
+}
+
+.user_row {
+   background-color: #419bf4;
+   display: block;
+   width: 100%;
+   text-align: center;
+   font-size: 16pt;
+}
+
+.nav_header {
+   background-color: #42f4f4;
+   display: block;
+   width: 100%;
+   text-align: center;
+   font-size: 25pt;
+}
+.nav_header_link {
+   color: inherit;
+   text-decoration: none;
+}
+.nav_header_link:hover {
+   text-decoration: underline;
+}
+
+.nav_list {
+   background-color: yellow;
+}
