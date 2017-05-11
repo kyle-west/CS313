@@ -18,6 +18,8 @@ INSERT INTO users (username, password) VALUES
 
 INSERT INTO documents (user_id, filename, page_count) VALUES
    ((SELECT id FROM users WHERE username = 'test1'),'historypaper1',14),
+   ((SELECT id FROM users WHERE username = 'test1'),'Physics Problem Set #4',3),
+   ((SELECT id FROM users WHERE username = 'test1'),'New Testament Hwk',1),
    ((SELECT id FROM users WHERE username = 'test3'),'a3',42),
    ((SELECT id FROM users WHERE username = 'test2'),'whatev',4),
    ((SELECT id FROM users WHERE username = 'test6'),'abcd',5),
@@ -55,6 +57,18 @@ INSERT INTO reviews (doc_id, reviewer, status) VALUES
         WHERE user_id = (SELECT id FROM users WHERE username = 'test5') 
         AND  filename = 'cpp_assignment'),
     (SELECT id FROM users WHERE username = 'test0'), 1),
+   ((SELECT id FROM documents 
+        WHERE user_id = (SELECT id FROM users WHERE username = 'test1') 
+        AND  filename = 'englishpaper1'),
+    (SELECT id FROM users WHERE username = 'test7'), 0),
+   ((SELECT id FROM documents 
+        WHERE user_id = (SELECT id FROM users WHERE username = 'test1') 
+        AND  filename = 'historypaper1'),
+    (SELECT id FROM users WHERE username = 'test9'), 0),
+   ((SELECT id FROM documents 
+        WHERE user_id = (SELECT id FROM users WHERE username = 'test1') 
+        AND  filename = 'historypaper2'),
+    (SELECT id FROM users WHERE username = 'test7'), 0),    
    ((SELECT id FROM documents 
         WHERE user_id = (SELECT id FROM users WHERE username = 'test2') 
         AND  filename = 'whatev'),

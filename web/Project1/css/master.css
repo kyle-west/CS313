@@ -17,7 +17,7 @@ table.content td {
 }
 
 #main_container {
-   background-color: tan;
+   background-color: lightblue;
    width: 80%;
 }
 
@@ -59,4 +59,21 @@ table.content td {
 
 .nav_list {
    background-color: yellow;
+}
+
+.content_header {
+   text-align: center;
+}
+
+#server_doc_table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+}
+#server_doc_table th,
+#server_doc_table td {
+    border: 1px solid black;
+    text-align: center;
+    height: 40px;
+    vertical-align: middle;
 }
