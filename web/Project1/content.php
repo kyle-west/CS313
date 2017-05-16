@@ -1,4 +1,4 @@
-<table id = "server_doc_table">
+<table id = "server_table">
 <?php
    // initialize everything
    require 'db.php';
@@ -6,7 +6,7 @@
 
    $type = $_GET['type'];
 
-   echo $_SESSION["username"]." | ".$type."<br/><br/><br/>";
+   // echo $_SESSION["user_id"]." | ".$_SESSION["username"]." | ".$type."<br/><br/><br/>";
 
    switch ($type) {
       /*************************************************
@@ -31,6 +31,9 @@
          $statement->execute();
          while ($row = $statement->fetch(PDO::FETCH_ASSOC))
          { ?>
+            <tr class = "blank">
+               <td></td><td></td><td></td><td></td>
+            </tr>
             <tr>
                <td><?=$row["file"];?></td>
                <td><?=$row["pcount"];?></td>
@@ -63,13 +66,16 @@
             ON d.id = r.doc_id
             INNER JOIN users u
             ON u.id = d.user_id
-            WHERE r.reviewer = (SELECT id FROM users WHERE username =:username)
+            WHERE r.reviewer = :user_id
             ORDER BY r.status, d.filename;'
          );
-         $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
+         $statement->bindValue(':user_id', $_SESSION["user_id"], PDO::PARAM_STR);
          $statement->execute();
          while ($row = $statement->fetch(PDO::FETCH_ASSOC))
          { ?>
+            <tr class = "blank">
+               <td></td><td></td><td></td><td></td>
+            </tr>
             <tr>
                <td><?=$row["owned"];?></td>
                <td><?=$row["file"];?></td>

@@ -4,6 +4,14 @@
 
    if (isset($_POST["username"])) {
       $_SESSION["username"] = $_POST["username"];
+      require 'db.php';
+      $statement = $db->prepare(
+         'SELECT * FROM users WHERE username =:username'
+      );
+      $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
+      $statement->execute();
+      $row = $statement->fetch(PDO::FETCH_ASSOC);
+      $_SESSION['user_id'] = $row["id"];
       header("Location: index.php");
    } else {
       echo "[NOT SIGNED IN]";

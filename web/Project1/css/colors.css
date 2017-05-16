@@ -1,0 +1,83 @@
+/***** SCHEME 16 *****/
+/*:root {
+  --color-darkest   : #003399;
+  --color-dark      : #0099CC;
+  --color-light     : #66CCFF;
+  --color-lightest  : #CCFFCC;
+  --color-darkgrey  : #33475b;
+  --color-darkergrey  : #202123;
+}*/
+
+/***** SCHEME 158 *****/
+/*:root {
+  --color-darkest   : #00578A;
+  --color-dark      : #298F00;
+  --color-light     : #0588BC;
+  --color-lightest  : #CAE4F1;
+  --color-darkgrey  : #33475b;
+  --color-darkergrey  : #202123;
+}*/
+
+/***** SCHEME 19 *****/
+/*:root {
+  --color-darkest   : #000000;
+  --color-dark      : #006699;
+  --color-light     : #996699;
+  --color-lightest  : #CCCCCC;
+  --color-darkgrey  : #33475b;
+  --color-darkergrey  : #202123;
+}*/
+
+/***** BLUE Monochrome *****/
+:root {
+   --color-darkest   : #00578A;
+   --color-dark      : #0099CC;
+   --color-dark2     : #00a0d6;
+   --color-light     : #0588BC;
+   --color-lightest  : #CAE4F1;
+   --color-darkgrey  : #33475b;
+   --color-darkergrey  : #202123;
+   --color-theme-off-white: #F1F8FB;
+}
+
+
+a {
+   color: inherit;
+}
+
+#main_container {
+   background-color: var(--color-theme-off-white);
+   color: var(--color-darkergrey);
+}
+
+#nav {
+   background-color: var(--color-darkest);
+   color: var(--color-lightest);
+}
+
+#nav p.outside {
+   color: white;
+}
+
+.user_row {
+   background-color: var(--color-darkgrey);
+}
+
+.nav_header {
+   background-color: var(--color-light);
+}
+.nav_header_link {
+   color: inherit;
+}
+
+.nav_list p {
+   background-color: var(--color-dark2);
+   color: var(--color-darkgrey);
+}
+
+#server_table tr {
+   background-color: white;
+}
+#server_table tr.blank {
+   background-color: rgba(0,0,0,0);
+}

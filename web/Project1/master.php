@@ -3,7 +3,9 @@
    $__company = "Peerfessional";
 
    $__global_head = "
-      <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+      <link rel='stylesheet' href='css/base.css'/>
+      <link rel='stylesheet' href='css/colors.css'/>
+      <link rel='stylesheet' href='css/popup.css'/>
    ";
 
    function validPage($page) {

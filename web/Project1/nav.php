@@ -8,7 +8,7 @@
       <div class="user_row">
          Welcome, <?=$_SESSION['username'];?>
       </div>
-      <p>Not <?=$_SESSION['username'];?>? <a href = "logout.php">Sign out</a></p>
+      <p class = "outside">Not <?=$_SESSION['username'];?>? <a href = "logout.php">Sign out</a></p>
       <br/>
       <br/>
       <br/>
@@ -18,6 +18,7 @@
             Documents
          </div>
       </a>
+         <div id = "side_docs" class = "nav_list"></div>
       <br/>
       <br/>
 
@@ -26,9 +27,10 @@
             Reviews
          </div>
       </a>
+         <div id = "side_revs" class = "nav_list"></div>
    </td>
 
    <td id = "main_container">
-      <div id = "qdata">SERVER GENERATED CONTENT</div>
+      <div id = "qdata"></div>
    </td>
 </tr>

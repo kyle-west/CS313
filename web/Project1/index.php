@@ -5,8 +5,8 @@
    require 'master.php';
 
    if (!isset($_SESSION['username'])) {
-      // TODO: Kick out user to login instead of this...
-      $_SESSION['username'] = "DevMaster";
+      header("Location: login.php");
+      die();
    }
 
    // set up "page" we are on
@@ -22,8 +22,8 @@
    <head>
       <meta charset="utf-8"/>
       <title><?=$__company;?></title>
-      <link rel="stylesheet" href="css/master.css"/>
       <script src = "js/load_content.js"></script>
+      <script src = "js/side_content.js"></script>
       <?=$__global_head;?>
    </head>
    <body>
@@ -33,6 +33,8 @@
 
       <script>
          get_contents("<?=$current_page;?>");
+         load_side_contents_docs();
+         load_side_contents_revs();
       </script>
    </body>
 </html>

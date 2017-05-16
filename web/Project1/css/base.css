@@ -1,13 +1,14 @@
+* {
+   font-family: "Verdana";
+}
+
 body {
    margin: 0 auto;
    display: block;
 }
 
-a {
-   color: inherit;
-}
-
 table.content {
+   border-collapse: collapse;
    position: fixed;
    width: 100%;
    height: 100%;
@@ -17,62 +18,54 @@ table.content td {
 }
 
 #main_container {
-   background-color: lightblue;
    width: 80%;
 }
 
 #nav {
-   background-color: #33475b;
    width: 20%;
    min-width: 200px;
    max-width: 300px;
 }
 
 #nav p {
-   color: white;
    text-align: center;
    font-size: 9pt;
 }
 
 .user_row {
-   background-color: #419bf4;
    display: block;
    width: 100%;
    text-align: center;
-   font-size: 16pt;
+   font-size: 18pt;
+   font-weight: bolder;
+   padding-top: 10px;
+   padding-bottom: 10px;
 }
 
 .nav_header {
-   background-color: #42f4f4;
    display: block;
    width: 100%;
    text-align: center;
    font-size: 25pt;
 }
 .nav_header_link {
-   color: inherit;
    text-decoration: none;
 }
 .nav_header_link:hover {
    text-decoration: underline;
 }
 
-.nav_list {
-   background-color: yellow;
-}
-
 .content_header {
    text-align: center;
 }
 
-#server_doc_table {
+#server_table {
     border-collapse: collapse;
     width: 80%;
     margin: auto;
 }
-#server_doc_table th,
-#server_doc_table td {
-    border: 1px solid black;
+#server_table th,
+#server_table td {
     text-align: center;
     height: 40px;
     vertical-align: middle;

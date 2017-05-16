@@ -1,0 +1,73 @@
+.content_header {
+   padding-top: 15px;
+   padding-bottom: 15px;
+   color: var(--color-darkest);
+   background-color: white;
+   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.user_row, {
+   padding-top: 15px;
+   padding-bottom: 15px;
+   text-shadow: 3px 3px 4px #000000;
+}
+
+
+.user_row,
+.nav_header {
+   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav_header {
+   width: 95%;
+   margin: auto;
+   padding-top: 5px;
+   padding-bottom: 5px;
+}
+
+.nav_list {
+   width: 75%;
+   margin: auto;
+   margin-top: 10px;
+}
+.nav_list p {
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.17);
+   padding-top: 7px;
+   padding-bottom: 7px;
+   margin-top: 10px;
+}
+.nav_list:hover {
+   text-decoration: none;
+}
+
+#server_table tr {
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+   margin-top: 10px;
+}
+#server_table tr.blank {
+   box-shadow: none;
+}
+#server_table tr.blank td{
+   height: 15px;
+   padding: 0px;
+   margin: 0px;
+}
+
+input {
+   background-color: var(--color-light);
+   padding: 5px 15px;
+   text-shadow: 1px 1px 2px #000000;
+   color: var(--color-theme-off-white);
+   border: none;
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.05);
+   margin-right: 3px;
+   text-decoration: none;
+}
+
+input:hover {
+   background-color: var(--color-theme-off-white);
+   text-shadow: none;
+   color:  var(--color-darkest);
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.17);
+   text-decoration: underline;
+}
