@@ -36,6 +36,18 @@
             </p>
          </div>
          <div class="block_content">
+            <a class = "underline_hover"
+               href="Project1/login.php">
+               <h1>Peerfessional Reviews</h1>
+            </a>
+            <p>
+               This is our first project. Right now we only have the database
+               setup, with the website having read-only status. Click the link
+               to go to the login screen. You may login as any of the test users
+               shown via the hideous buttons.
+            </p>
+         </div>
+         <div class="block_content">
             <p>
                [other projects coming soon]
             </p>
