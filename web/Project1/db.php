@@ -1,21 +1,27 @@
 <?php
 // initialize session
 session_start();
-try
-{
-   if ($_SERVER['HTTP_HOST'] == "https://pure-hamlet-55952.herokuapp.com") {
-         $password = '';
-         $user = 'postgres';
-         $db = new PDO('pgsql:host=https://pure-hamlet-55952.herokuapp.com;port=5432;dbname=pure-hamlet-55952::DATABASE', $user, $password);
-      } else {
-         $password = '7510';
-         $user = 'postgres';
-         $db = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=cs313', $user, $password);
-      }
-   }
-   catch (PDOException $ex)
-   {
-      echo 'Error!: ' . $ex->getMessage();
-      die();
-   }
+
+$db = NULL;
+try {
+	// default Heroku Postgres configuration URL
+	$dbUrl = getenv('DATABASE_URL');
+	if (!isset($dbUrl) || empty($dbUrl)) {
+		$dbUrl = "postgres://postgres:7510@localhost:5432/cs313";
+	}
+	// Get the various parts of the DB Connection from the URL
+	$dbopts = parse_url($dbUrl);
+	$dbHost = $dbopts["host"];
+	$dbPort = $dbopts["port"];
+	$dbUser = $dbopts["user"];
+	$dbPassword = $dbopts["pass"];
+	$dbName = ltrim($dbopts["path"],'/');
+	$db = new PDO("pgsql:host=$dbHost;port=$dbPort;dbname=$dbName", $dbUser, $dbPassword);
+	$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+}
+catch (PDOException $ex) {
+	echo "Error connecting to DB. Details: $ex";
+	die();
+}
+
 ?>
