@@ -106,8 +106,8 @@
                            echo "<input type = 'button' onclick = '' value = 'Reject'/>";
                            break;
                         case 2:
-                           echo "<input type = 'button' onclick = '' value = 'Continue'/>";
-                           echo "<input type = 'button' onclick = '' value = 'Mark Done'/>";
+                           echo "<input type = 'button' onclick = '' value = 'Review'/>";
+                           echo "<input type = 'button' onclick = '' value = 'Send Back'/>";
                            break;
                         case 3:echo "[Completed]"; break;
                      }

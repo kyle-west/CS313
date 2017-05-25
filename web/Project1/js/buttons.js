@@ -98,6 +98,7 @@ var buttons = {
 };
 
 function modalOn() {
+   $('html, body').animate({ scrollTop: 0 }, 'fast');
    document.getElementById('modal').style.display = "block";
 }
 

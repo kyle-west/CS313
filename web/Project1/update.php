@@ -2,8 +2,6 @@
 
 print_r($_POST);
 
-// TODO: actually do stuff to the database
-
 require "db.php";
 
 session_start();
@@ -64,29 +62,6 @@ switch ($type) {
 
             $statement->execute();
       }
-      // $docs = "";
-      // for ($i = 0; $i < count($_POST['del_docs']); $i++) {
-      //    $docs .= htmlspecialchars($_POST['del_docs'][$i]);
-      //    if ($i + 1 != count($_POST['del_docs']))
-      //       $docs .= ",";
-      // }
-      //
-      // // remove dependancies
-      // $dropdeps = "DELETE FROM reviews WHERE doc_id IN (:idset)";
-      // $drop_stmnt = $db->prepare($dropdeps);
-      // $drop_stmnt->bindValue(':idset', $docs, PDO::PARAM_STR);
-      // $drop_stmnt->execute();
-      //
-      // // remove document
-      // $query = "DELETE FROM documents
-      //           WHERE id IN (:idset)
-      //           AND user_id = (SELECT id FROM users WHERE username = :username)";
-      //
-      // $statement = $db->prepare($query);
-      // $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
-      // $statement->bindValue(':idset', $docs, PDO::PARAM_STR);
-      //
-      // $statement->execute();
       break;
 
 
