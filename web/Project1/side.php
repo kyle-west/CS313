@@ -14,15 +14,13 @@
       *************************************************/
       case "docs":
          $statement = $db->prepare(
-            'SELECT d.filename AS "file",
-                   d.page_count AS "pcount",
-                   (SELECT username FROM users WHERE id = r.reviewer) AS "reviewed",
-                   r.status   AS "status"
+            'SELECT d.filename AS "file"
             FROM documents d FULL JOIN reviews r
             ON d.id = r.doc_id
             INNER JOIN users u
             ON u.id = d.user_id
             WHERE u.username =:username
+            GROUP BY d.id, r.status
             ORDER BY r.status, d.filename
             LIMIT 3;'
          );

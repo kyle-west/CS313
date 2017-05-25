@@ -6,6 +6,8 @@
       <link rel='stylesheet' href='css/base.css'/>
       <link rel='stylesheet' href='css/colors.css'/>
       <link rel='stylesheet' href='css/popup.css'/>
+      <link rel='stylesheet' href='css/buttons.css'/>
+      <link rel='stylesheet' href='css/modal.css'/>
    ";
 
    function validPage($page) {

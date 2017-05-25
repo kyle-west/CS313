@@ -37,7 +37,7 @@
    --color-lightest  : #CAE4F1;
    --color-darkgrey  : #33475b;
    --color-darkergrey  : #202123;
-   --color-theme-off-white: #F1F8FB;
+   --color-theme-off-white: #d9e0e2;/*#F1F8FB;*/
 }
 
 
@@ -75,9 +75,18 @@ a {
    color: var(--color-darkgrey);
 }
 
-#server_table tr {
+#server_table tr:not(.selected) {
    background-color: white;
 }
+#server_table tr.selected,
+#server_table tr.selected_assoc {
+   background-color: var(--color-lightest);
+}
+
 #server_table tr.blank {
    background-color: rgba(0,0,0,0);
+}
+
+#server_table tr.clicked {
+   background-color: blue;
 }

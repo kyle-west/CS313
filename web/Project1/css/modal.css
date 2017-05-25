@@ -1,0 +1,100 @@
+#main {
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 0;
+}
+
+#modal {
+   position: absolute;
+   top: 0;
+   left: 0;
+   display: none;
+   z-index: 1;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 10, 0.75);
+   overflow-y: visible;
+}
+
+#modal_content {
+   position: relative;
+   padding: 20px 30px;
+   border-radius: 25px;
+   top: 25%;
+   width: 50%;
+   min-width: 500px;
+   margin: auto;
+   background-color: lightblue;
+}
+
+#exit {
+   color: white;
+   position: absolute;
+   top: 25px;
+   right: 35px;
+   cursor: pointer;
+   font-size: 22pt;
+   font-weight: bold;
+   font-family: "Consolas";
+   border: 4px solid white;
+   border-radius: 25px;
+   height: 40px;
+   width: 40px;
+   text-align: center;
+}
+
+#modal input[type='text'] {
+   width: 150px;
+}
+
+#modal input[type='number'] {
+   width: 50px;
+}
+
+#modal #reviewer_opts {
+   width: 100%;
+   height: 200px;
+   overflow-y: scroll;
+   border: 1px solid black
+}
+
+#modal .rev_opt_head {
+   width: calc(100% - 16px);
+   height: 50px;
+   border: 1px solid black;
+   background-color: white;
+}
+
+#modal_select_peer {
+   width: 100%;
+   text-align: center;
+   border: none;
+}
+
+#modal_select_peer tr:not(.selected) {
+   background-color: white;
+}
+#modal_select_peer tr.selected {
+   background-color: var(--color-light);
+}
+
+#modal_select_peer td,
+#modal_select_peer th {
+   width: 50%;
+   vertical-align: middle;
+   padding-left: 0;
+   padding-right: 0;
+   padding-top: 15px;
+   padding-bottom: 15px;
+}
+
+#modal_select_peer tr.blank {
+   box-shadow: none;
+   background-color: lightblue;
+}
+#modal_select_peer tr.blank td{
+   height: 5px;
+   padding: 0px;
+   margin: 0px;
+}

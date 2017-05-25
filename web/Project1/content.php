@@ -2,6 +2,7 @@
 <?php
    // initialize everything
    require 'db.php';
+   require 'db_translate.php';
    session_start();
 
    $type = $_GET['type'];
@@ -19,7 +20,8 @@
             'SELECT d.filename AS "file",
                    d.page_count AS "pcount",
                    (SELECT username FROM users WHERE id = r.reviewer) AS "reviewed",
-                   r.status   AS "status"
+                   r.status   AS "status",
+                   d.id AS "id"
             FROM documents d FULL JOIN reviews r
             ON d.id = r.doc_id
             INNER JOIN users u
@@ -29,26 +31,41 @@
          );
          $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
          $statement->execute();
+         $last_id = -1;
          while ($row = $statement->fetch(PDO::FETCH_ASSOC))
-         { ?>
-            <tr class = "blank">
-               <td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-               <td><?=$row["file"];?></td>
-               <td><?=$row["pcount"];?></td>
-               <td>
-                  <?php
-                     if (!empty($row["reviewed"])) {
-                        echo $row["reviewed"];
-                     } else {
-                        echo "<input type = 'button' onclick = '' value = 'Select a Reviewer!'/>";
-                     }
-                  ?>
-               </td>
-               <td><?=$row["status"];?></td>
-            </tr>
-         <?php }
+         {
+            if ($last_id != $row["id"]) { ?>
+               <tr class = "blank">
+                  <td></td><td></td><td></td><td></td>
+               </tr>
+               <tr onclick = "selectRow(this);" id = '<?=$row["id"];?>' data-name = '<?=$row["file"];?>' class = "data_row">
+                  <td>
+                     <span ondblclick="editText(this);" data-row-id = "<?=$row["id"];?>">
+                     <?=$row["file"];?></span>
+                  </td>
+                  <td><?=$row["pcount"];?></td>
+                  <td><?=$row["reviewed"];?></td>
+                  <td><?=evaluteReviewStatus($row["status"]);?></td>
+               </tr>
+               <?php
+               $last_id = $row['id'];
+            } else { ?>
+               <tr data-tied-to = '<?=$row["id"];?>'  class = "data_row_assoc" onclick="selectAssocRow(this)">
+                  <td></td>
+                  <td></td>
+                  <td>
+                     <?php
+                        if (!empty($row["reviewed"])) {
+                           echo $row["reviewed"];
+                        } else {
+                           echo "<input type = 'button' onclick = 'buttons.docs.send();' value = 'Select a Reviewer!'/>";
+                        }
+                     ?>
+                  </td>
+                  <td><?=evaluteReviewStatus($row["status"]);?></td>
+               </tr>
+            <?php }
+         }
          break;
 
       /*************************************************
@@ -83,13 +100,16 @@
                <td>
                   <?php
                      switch ($row["status"]) {
-                        case 0:
-                           echo "<input type = 'button' onclick = '' value = 'Start Reviewing'/>";
+                        case -9:echo "[Rejected]"; break;
+                        case 1:
+                           echo "<input type = 'button' onclick = '' value = 'Accept'/>";
+                           echo "<input type = 'button' onclick = '' value = 'Reject'/>";
                            break;
-                        default:
-                           echo "<input type = 'button' onclick = '' value = 'Continue Review'/>";
+                        case 2:
+                           echo "<input type = 'button' onclick = '' value = 'Continue'/>";
                            echo "<input type = 'button' onclick = '' value = 'Mark Done'/>";
                            break;
+                        case 3:echo "[Completed]"; break;
                      }
                   ?>
                </td>
@@ -102,3 +122,35 @@
    }
 ?>
 </table>
+
+<div class = "button_row">
+   <?php if ($type == "docs") { ?>
+      <div class="button plus left" onclick = "buttons.docs.plus();"
+           id = "plus" title = 'Upload New Document'>
+         <div class="content">
+            +
+         </div>
+      </div>
+
+      <div class="button question left" onclick = "buttons.docs.help();"
+           id = "help" title = 'Help Menu'>
+         <div class="content">
+            ?
+         </div>
+      </div>
+
+      <div class="button minus right show_on_selected"
+           onclick = "buttons.docs.minus();" id = "minus" title = 'Remove Selected'>
+         <div class="content">
+            <img src="imgs/trash.png"/>
+         </div>
+      </div>
+
+      <div class="button send right show_on_selected"
+      onclick = "buttons.docs.send();" id = "send" title = 'Send to Peer'>
+      <div class="content">
+         <img src="imgs/send2.png" id = 'send_icon'/>
+      </div>
+   </div>
+   <?php } ?>
+</div>

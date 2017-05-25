@@ -1,3 +1,7 @@
+div.button {
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
 .content_header {
    padding-top: 15px;
    padding-bottom: 15px;
@@ -53,7 +57,7 @@
    margin: 0px;
 }
 
-input {
+input[type='button'] {
    background-color: var(--color-light);
    padding: 5px 15px;
    text-shadow: 1px 1px 2px #000000;
@@ -64,7 +68,7 @@ input {
    text-decoration: none;
 }
 
-input:hover {
+input[type='button']:hover {
    background-color: var(--color-theme-off-white);
    text-shadow: none;
    color:  var(--color-darkest);
