@@ -12,6 +12,12 @@ function remove_selected_from_db() {
    var req = new Request("update.php", { post: data });
    req.whenDone = function () {
       get_contents("docs");
+      get_contents("docs");
+      new Request(
+         "side.php",
+         { get: "part=docs" },
+         document.getElementById("side_docs")
+      ).execute();
    };
    req.execute();
 
@@ -42,6 +48,11 @@ function add_document_to_db() {
    var req = new Request("update.php", { post: data });
    req.whenDone = function () {
       get_contents("docs");
+      new Request(
+         "side.php",
+         { get: "part=docs" },
+         document.getElementById("side_docs")
+      ).execute();
    };
    req.execute();
 
@@ -54,7 +65,17 @@ function add_document_to_db() {
 **************************************************************************/
 function change_document_name_in_db(id, newname) {
    var data = "type=name_change&id="+id+"&newname="+newname;
-   new Request("update.php", { post: data }).execute();
+
+   var req = new Request("update.php", { post: data });
+   req.whenDone = function () {
+      new Request(
+         "side.php",
+         { get: "part=docs" },
+         document.getElementById("side_docs")
+      ).execute();
+   };
+   req.execute();
+
    console.log("CHANGE statement sent: #" + id + " to '"+newname+"'");
 }
 
