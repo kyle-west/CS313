@@ -42,29 +42,71 @@ switch ($type) {
       $statement->execute();
       break;
 
+
    case "delete":
-      for ($i = 0; $i < count($_POST['del_docs']); $i++) {
-         $docs .= htmlspecialchars($_POST['del_docs'][$i]);
-         if ($i + 1 != count($_POST['del_docs']))
-            $docs .= ",";
+      for ($d = 0; $d < count($_POST['del_docs']); $d++) {
+            $doc  = htmlspecialchars($_POST['del_docs'][$d]);
+
+            // remove dependancies
+            $dropdeps = "DELETE FROM reviews WHERE doc_id = :doc;";
+            $drop_stmnt = $db->prepare($dropdeps);
+            $drop_stmnt->bindValue(':doc', $doc, PDO::PARAM_INT);
+            $drop_stmnt->execute();
+
+            // remove document
+            $query = "DELETE FROM documents
+                      WHERE id = :doc
+                      AND user_id = (SELECT id FROM users WHERE username = :username)";
+
+            $statement = $db->prepare($query);
+            $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
+            $statement->bindValue(':doc', $doc, PDO::PARAM_INT);
+
+            $statement->execute();
       }
+      // $docs = "";
+      // for ($i = 0; $i < count($_POST['del_docs']); $i++) {
+      //    $docs .= htmlspecialchars($_POST['del_docs'][$i]);
+      //    if ($i + 1 != count($_POST['del_docs']))
+      //       $docs .= ",";
+      // }
+      //
+      // // remove dependancies
+      // $dropdeps = "DELETE FROM reviews WHERE doc_id IN (:idset)";
+      // $drop_stmnt = $db->prepare($dropdeps);
+      // $drop_stmnt->bindValue(':idset', $docs, PDO::PARAM_STR);
+      // $drop_stmnt->execute();
+      //
+      // // remove document
+      // $query = "DELETE FROM documents
+      //           WHERE id IN (:idset)
+      //           AND user_id = (SELECT id FROM users WHERE username = :username)";
+      //
+      // $statement = $db->prepare($query);
+      // $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
+      // $statement->bindValue(':idset', $docs, PDO::PARAM_STR);
+      //
+      // $statement->execute();
+      break;
 
-      // remove dependancies
-      $dropdeps = "DELETE FROM reviews WHERE doc_id IN (:idset)";
-      $drop_stmnt = $db->prepare($dropdeps);
-      $drop_stmnt->bindValue(':idset', $docs, PDO::PARAM_STR);
-      $drop_stmnt->execute();
 
-      // remove document
-      $query = "DELETE FROM documents
-                WHERE id IN (:idset)
-                AND user_id = (SELECT id FROM users WHERE username = :username)";
+   case "new_review":
+      for ($d = 0; $d < count($_POST['send_docs']); $d++) {
+         for ($p = 0; $p < count($_POST['peer']); $p++) {
+            $doc  = htmlspecialchars($_POST['send_docs'][$d]);
+            $peer = htmlspecialchars($_POST['peer'][$p]);
 
-      $statement = $db->prepare($query);
-      $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
-      $statement->bindValue(':idset', $docs, PDO::PARAM_STR);
+            $query = 'INSERT INTO reviews (doc_id, reviewer, status) VALUES
+                        (:doc, (SELECT id FROM users WHERE username = :peer), 1)
+                        ON CONFLICT (doc_id, reviewer) DO NOTHING;';
 
-      $statement->execute();
+            $statement = $db->prepare($query);
+            $statement->bindValue(':peer', $peer, PDO::PARAM_STR);
+            $statement->bindValue(':doc', $doc, PDO::PARAM_INT);
+
+            $statement->execute();
+         }
+      }
       break;
 }
 

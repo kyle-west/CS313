@@ -27,7 +27,7 @@
             INNER JOIN users u
             ON u.id = d.user_id
             WHERE u.username =:username
-            ORDER BY r.status, d.filename;'
+            ORDER BY d.filename,r.status;'
          );
          $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
          $statement->execute();
@@ -154,3 +154,11 @@
    </div>
    <?php } ?>
 </div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>

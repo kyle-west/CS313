@@ -186,6 +186,7 @@ function toggleMainRows(tieElem) {
          } else {
             rows[i].classList.add('selected');
          }
+         return rows[i];
       }
    }
 }
@@ -193,11 +194,10 @@ function toggleMainRows(tieElem) {
 function selectAssocRow(row) {
    if (row.classList.contains('selected_assoc')) {
       row.classList.remove('selected_assoc');
-      toggleMainRows(row);
    } else {
       row.classList.add('selected_assoc');
-      toggleMainRows(row);
    }
+   toggleAssocRows(toggleMainRows(row));
    updateButtons();
 }
 
