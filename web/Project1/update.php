@@ -83,6 +83,21 @@ switch ($type) {
          }
       }
       break;
+
+   case "update_status":
+      $status  = htmlspecialchars($_POST['status']);
+      $doc     = htmlspecialchars($_POST['doc']);
+
+      $query = 'UPDATE reviews SET status = :status WHERE doc_id = :doc
+                AND reviewer = (SELECT id FROM users WHERE username = :username);';
+
+      $statement = $db->prepare($query);
+      $statement->bindValue(':status', $status, PDO::PARAM_INT);
+      $statement->bindValue(':doc', $doc, PDO::PARAM_INT);
+      $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
+
+      $statement->execute();
+      break;
 }
 
 ?>

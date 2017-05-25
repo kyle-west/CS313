@@ -12,7 +12,6 @@ function remove_selected_from_db() {
    var req = new Request("update.php", { post: data });
    req.whenDone = function () {
       get_contents("docs");
-      get_contents("docs");
       new Request(
          "side.php",
          { get: "part=docs" },
@@ -101,4 +100,25 @@ function send_doc_to_reviewer() {
    modalOff();
    console.log("REVIEW ADD statement sent");
    get_contents("docs");
+}
+
+/**************************************************************************
+* UPDATE REVIEW STATUS
+**************************************************************************/
+function update_status(elem, newstatus) {
+   var id = elem.parentElement.getAttribute('data-doc-id');
+   var data = "type=update_status&doc="+id+"&status="+newstatus;
+
+   var req = new Request("update.php", { post: data });
+   req.whenDone = function () {
+      get_contents("revs");
+      new Request(
+         "side.php",
+         { get: "part=revs" },
+         document.getElementById("side_revs")
+      ).execute();
+   };
+   req.execute();
+
+   console.log("UPDATE STATUS statement sent");
 }

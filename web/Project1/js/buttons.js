@@ -93,7 +93,15 @@ var buttons = {
    },
 
    revs: {
-
+      review: function(elem) {
+         var doc = elem.parentElement.getAttribute('data-doc-name');
+         var modal_content = document.getElementById("modal_content");
+         modal_content.innerHTML =
+            "<h2>Review \""+doc+"\"</h2>"+
+            "<p>[This is out of the CS 313 Project1 scope]</p>" +
+            "<input type = 'button' name = 'done' value = 'OK' class = 'right' onclick = 'modalOff();'/><br/>";
+         modalOn();
+      }
    },
 };
 

@@ -75,10 +75,11 @@
          print "<h1 class = 'content_header'> The Following Documents Need Your Feedback, Sir ".$_SESSION["username"]."</h1>";
          print "<tr> <th>From</th> <th>File</th> <th>Page Count</th><th>Action</th></tr>";
          $statement = $db->prepare(
-            'SELECT d.filename AS "file",
-                   u.username AS "owned",
-                   d.page_count AS "pcount",
-                   r.status   AS "status"
+            'SELECT d.id AS "id",
+                    d.filename AS "file",
+                    u.username AS "owned",
+                    d.page_count AS "pcount",
+                    r.status   AS "status"
             FROM documents d INNER JOIN reviews r
             ON d.id = r.doc_id
             INNER JOIN users u
@@ -97,17 +98,17 @@
                <td><?=$row["owned"];?></td>
                <td><?=$row["file"];?></td>
                <td><?=$row["pcount"];?></td>
-               <td>
+               <td data-doc-id = '<?=$row["id"];?>' data-doc-name = '<?=$row["file"];?>'>
                   <?php
                      switch ($row["status"]) {
                         case -9:echo "[Rejected]"; break;
                         case 1:
-                           echo "<input type = 'button' onclick = '' value = 'Accept'/>";
-                           echo "<input type = 'button' onclick = '' value = 'Reject'/>";
+                           echo "<input type = 'button' onclick = 'update_status(this,2)' value = 'Accept'/>";
+                           echo "<input type = 'button' onclick = 'update_status(this,-9)' value = 'Reject'/>";
                            break;
                         case 2:
-                           echo "<input type = 'button' onclick = '' value = 'Review'/>";
-                           echo "<input type = 'button' onclick = '' value = 'Send Back'/>";
+                           echo "<input type = 'button' onclick = 'buttons.revs.review(this)' value = 'Review'/>";
+                           echo "<input type = 'button' onclick = 'update_status(this,3)' value = 'Send Back'/>";
                            break;
                         case 3:echo "[Completed]"; break;
                      }
