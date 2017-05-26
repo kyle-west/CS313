@@ -27,7 +27,7 @@
             INNER JOIN users u
             ON u.id = d.user_id
             WHERE u.username =:username
-            ORDER BY d.filename,r.status;'
+            ORDER BY d.filename;'
          );
          $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
          $statement->execute();
@@ -44,7 +44,23 @@
                      <?=$row["file"];?></span>
                   </td>
                   <td><?=$row["pcount"];?></td>
-                  <td><?=$row["reviewed"];?></td>
+                  <?php if (!empty($row["reviewed"])) {?>
+                     <td class="contains_hidden_button">
+                        <?php if ($row['status'] != 2 /*Being reviewed*/) {?>
+                        <div class="button minus right firepeer"
+                             onclick = "buttons.docs.firepeer(this);"
+                             data-doc-id='<?=$row["id"];?>'
+                             data-reviewer = '<?=$row["reviewed"];?>'
+                             data-status = '<?=$row["status"];?>'
+                             title = '<?php
+                                print evaluteDeleteButtonTitleStatus($row["status"]);
+                             ?>'>
+                           <div class="content">x</div>
+                        </div>
+                        <?php } ?>
+                        <?=$row["reviewed"];?>
+                  <?php } else print "<td>"; ?>
+                  </td>
                   <td><?=evaluteReviewStatus($row["status"]);?></td>
                </tr>
                <?php
@@ -53,14 +69,22 @@
                <tr data-tied-to = '<?=$row["id"];?>'  class = "data_row_assoc" onclick="selectAssocRow(this)">
                   <td></td>
                   <td></td>
-                  <td>
-                     <?php
-                        if (!empty($row["reviewed"])) {
-                           echo $row["reviewed"];
-                        } else {
-                           echo "<input type = 'button' onclick = 'buttons.docs.send();' value = 'Select a Reviewer!'/>";
-                        }
-                     ?>
+                  <?php if (!empty($row["reviewed"])) {?>
+                     <td class="contains_hidden_button">
+                        <?php if ($row['status'] != 2 /*Being reviewed*/) {?>
+                        <div class="button minus right firepeer"
+                             onclick = "buttons.docs.firepeer(this);"
+                             data-doc-id='<?=$row["id"];?>'
+                             data-reviewer = '<?=$row["reviewed"];?>'
+                             data-status = '<?=$row["status"];?>'
+                             title = '<?php
+                                print evaluteDeleteButtonTitleStatus($row["status"]);
+                             ?>'>
+                           <div class="content">x</div>
+                        </div>
+                        <?php } ?>
+                        <?=$row["reviewed"];?>
+                  <?php } else print "<td>"; ?>
                   </td>
                   <td><?=evaluteReviewStatus($row["status"]);?></td>
                </tr>
@@ -85,7 +109,7 @@
             INNER JOIN users u
             ON u.id = d.user_id
             WHERE r.reviewer = :user_id
-            ORDER BY r.status, d.filename;'
+            ORDER BY d.filename;'
          );
          $statement->bindValue(':user_id', $_SESSION["user_id"], PDO::PARAM_STR);
          $statement->execute();

@@ -98,6 +98,25 @@ switch ($type) {
 
       $statement->execute();
       break;
+
+   case "cancel_rev":
+      $reviewer = (string)htmlspecialchars($_POST['reviewer']);
+      $doc      = (int)htmlspecialchars($_POST['doc']);
+
+      $query = 'DELETE FROM reviews USING documents
+                WHERE reviews.doc_id     = documents.id
+                AND   documents.user_id  = (SELECT id FROM users WHERE username = :username)
+                AND   reviews.reviewer   = (SELECT id FROM users WHERE username = :reviewer)
+                AND   reviews.doc_id     = :doc
+                AND   reviews.status NOT IN (2)';
+
+      $statement = $db->prepare($query);
+      $statement->bindValue(':reviewer', $reviewer, PDO::PARAM_STR);
+      $statement->bindValue(':doc', $doc, PDO::PARAM_INT);
+      $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
+
+      $statement->execute();
+      break;
 }
 
 ?>

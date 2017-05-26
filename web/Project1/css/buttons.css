@@ -91,3 +91,32 @@ div.button div.content img {
 .show_on_selected {
    display: none;
 }
+
+.contains_hidden_button {
+   position: relative;
+}
+.contains_hidden_button .firepeer .content {
+   width: 90%;
+   height: 50%;
+   margin: auto auto;
+   position: relative;
+   bottom: 4px;
+   text-align: center;
+}
+.contains_hidden_button .firepeer{
+   z-index: 5;
+   display:none;
+   position: absolute;
+   width: 18px;
+   height: 18px;
+   border-radius: 8px;
+   text-align: center;
+   font-weight: 600;
+   font-family: "Consolas";
+   font-size: 9pt;
+   top: 30%;
+   right: 3%;
+}
+.contains_hidden_button:hover .firepeer{
+   display: inline-block;
+}

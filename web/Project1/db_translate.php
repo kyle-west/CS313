@@ -8,4 +8,14 @@ function evaluteReviewStatus($stat) {
 	}
 }
 
+function evaluteDeleteButtonTitleStatus($stat) {
+	switch($stat) {
+		case  3:
+		case -9:
+			return "Remove Review";
+
+		case  1: return "Cancel Review";
+	}
+}
+
 ?>

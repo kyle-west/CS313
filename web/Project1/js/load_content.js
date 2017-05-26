@@ -4,11 +4,23 @@
 *******************************************/
 function get_contents(page)
 {
-   new Request(
+   var req = new Request(
       "content.php",
       { get: "type=" + page },
       document.getElementById("qdata")
-   ).execute();
+   );
+
+   switch (page) {
+      case "docs":
+         req.ifSuccess = function () {
+            $(".firepeer").click(function(event) {
+               event.stopPropagation();
+            });
+         }
+         break;
+   }
+
+   req.execute();
 }
 
 

@@ -103,6 +103,26 @@ function send_doc_to_reviewer() {
 }
 
 /**************************************************************************
+* CANCEL REVIEW FROM PEER
+**************************************************************************/
+function cancel_review_in_db() {
+   var review = document.getElementById('cancel_rev');
+   var id     = review.getAttribute('data-id');
+   var rev    = review.getAttribute('data-rev');
+   var data = "type=cancel_rev&doc="+id+"&reviewer="+rev;
+
+   var req = new Request("update.php", { post: data });
+   req.whenDone = function () {
+      get_contents("docs");
+   };
+   req.execute();
+
+   unselectAllRows();
+   modalOff();
+   console.log("CANCEL REVIEW statment sent");
+}
+
+/**************************************************************************
 * UPDATE REVIEW STATUS
 **************************************************************************/
 function update_status(elem, newstatus) {

@@ -40,7 +40,8 @@ var buttons = {
 
       help  : function () {
          document.getElementById("modal_content").innerHTML =
-            "<h2>Help Menu:</h2> <p>[instructions go here]</p>";
+            "<h2>Help Menu:</h2> <p>[instructions go here]</p>"+
+            "<input type = 'button' name = 'ok' value = 'OK' class = 'right' onclick = 'modalOff();'/><br/>";
          modalOn();
       },
 
@@ -87,6 +88,38 @@ var buttons = {
                document.getElementById("rev_opt_head").innerHTML = "";
             };
             req.execute();
+
+         modalOn();
+      },
+
+      firepeer : function (elem) {
+         var doc  = elem.getAttribute('data-doc-id');
+         var stat = elem.getAttribute('data-status');
+         var rev  = elem.getAttribute('data-reviewer');
+         var modal_content = document.getElementById("modal_content");
+
+         switch (stat) {
+            case "-9":
+            case  "3":
+               modal_content.innerHTML =
+               "<h2>Remove Review</h2>"+
+               "<p>Are you sure you want to remove "+rev+"'s review from the list'? </p>"+
+               "<div id = 'cancel_rev' data-id = '"+doc+"' data-rev = '"+rev+"'></div>"+
+               "<input type = 'button' name = 'remove' value = 'Yes' class = 'right' onclick = 'cancel_review_in_db();'/>"+
+               "<input type = 'button' name = 'remove' value = 'No' class = 'right' onclick = 'modalOff();'/>"+
+               "<br/>";
+               break;
+
+            case "1":
+               modal_content.innerHTML =
+               "<h2>Cancel Peer Review</h2>"+
+               "<p>Are you sure you want to cancel your review from "+rev+"? </p>"+
+               "<div id = 'cancel_rev' data-id = '"+doc+"' data-rev = '"+rev+"'></div>"+
+               "<input type = 'button' name = 'fire' value = 'Yes' class = 'right' onclick = 'cancel_review_in_db();'/>"+
+               "<input type = 'button' name = 'fire' value = 'No' class = 'right' onclick = 'modalOff();'/>"+
+               "<br/>";
+               break;
+         }
 
          modalOn();
       }
@@ -137,6 +170,10 @@ function editText(elem) {
       "onblur = 'change_doc_name(this, this.parentElement);'" +
       "onfocus = 'this.select();'/>";
    elem.childNodes[0].focus();
+   if (elem.parentElement.classList.contains('selected')) {
+      elem.parentElement.classList.remove('selected');
+      toggleAssocRows(elem.parentElement);
+   }
    console.log("Editing text:   '" + text + "'");
 }
 
