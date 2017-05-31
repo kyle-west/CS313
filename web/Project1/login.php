@@ -2,36 +2,55 @@
    // initialize session
    session_start();
 
-   if (isset($_POST["username"])) {
-      $_SESSION["username"] = $_POST["username"];
+   $err = "";
+   if (isset($_POST["submit"])) {
+      $user = htmlspecialchars($_POST['usrn']);
+      $pass = htmlspecialchars($_POST['pass']);
       require 'db.php';
       $statement = $db->prepare(
-         'SELECT * FROM users WHERE username =:username'
+         'SELECT id FROM users WHERE username =:username AND password = :password'
       );
-      $statement->bindValue(':username', $_SESSION["username"], PDO::PARAM_STR);
+      $statement->bindValue(':username', $user, PDO::PARAM_STR);
+      $statement->bindValue(':password', md5($pass), PDO::PARAM_STR);
       $statement->execute();
-      $row = $statement->fetch(PDO::FETCH_ASSOC);
-      $_SESSION['user_id'] = $row["id"];
-      header("Location: index.php");
-   } else {
-      echo "[NOT SIGNED IN]";
+      if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+         $_SESSION['user_id'] = $row["id"];
+         $_SESSION['username'] = $user;
+         header("Location: index.php");
+      } else {
+         $err = "Username or password incorrect.";
+      }
    }
-
- ?>
-<br/>
-<br/>
-<br/>
-<form class="" action="login.php" method="post">
-   <button type="submit" name="username" value="test1">Login as Test User 1</button>
-   <br/>
-   <br/>
-   <button type="submit" name="username" value="test7">Login as Test User 7</button>
-   <br/>
-   <br/>
-   <button type="submit" name="username" value="test9">Login as Test User 9</button>
-</form>
-<br/>
-<br/>
-<br/>
-<br/>
-<button onclick = "window.location.href = 'logout.php';" >Log out</button>
+?>
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8"/>
+      <link rel="stylesheet" href="css/login.css">
+      <title>Peerfessional - Sign In</title>
+   </head>
+   <body onload="document.getElementById('usrn').focus();">
+      <h1>Peerfessional Login</h1>
+      <div class = "content">
+         <form class="" action="login.php" method="post">
+            <table>
+               <tr>
+                  <td><label for="usrn">Username:</label></td>
+                  <td class="right"><input id = "usrn" type="text" name="usrn" value="" placeholder="you123"></td>
+               </tr>
+               <tr>
+                  <td><label for="pass">Password:</label></td>
+                  <td class="right"><input id = "pass" type="password" name="pass" value=""></td>
+               </tr>
+            </table>
+            <p class = "err1"><?=$err?><p>
+            <input type="submit" name="submit" value="Login">
+         </form>
+      </div>
+      <div id = "sidenote">
+         Don't have an account?
+         <input type="button" value = "Sign Up!"
+                onclick="window.location.href = 'signup.php'"/>
+      </div>
+   </body>
+</html>

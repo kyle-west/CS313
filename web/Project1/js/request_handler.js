@@ -17,6 +17,7 @@ function Request(location, data, resultElem) {
    this.post     = data.post  || null;
    this.get      = data.get   || "";
    this.result   = resultElem || null;
+   this.async    = true;
    this.req = new XMLHttpRequest();
 }
 
@@ -54,11 +55,11 @@ Request.prototype = {
             }
          };
          if (this.post) {
-            this.req.open("POST", this.location + "?" + this.get, true);
+            this.req.open("POST", this.location + "?" + this.get, this.async);
             this.req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             this.req.send(this.post);
          } else {
-            this.req.open("GET", this.location + "?" + this.get, true);
+            this.req.open("GET", this.location + "?" + this.get, this.async);
             this.req.send(null);
          }
       }

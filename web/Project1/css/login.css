@@ -1,0 +1,87 @@
+* {
+   font-family: "Verdana";
+}
+
+body {
+   background-color: #d9e0e2;
+}
+
+h1,div.content {
+   text-align: center;
+   padding-top: 15px;
+   padding-bottom: 15px;
+   color: #00578A;
+   background-color: white;
+   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+div.content {
+   width: 60%;
+   min-width: 400px;
+   max-width: 700px;
+   margin: auto;
+}
+
+
+table {
+   width: 350px;
+   padding-top: 50;
+   padding-bottom: 50;
+   margin: auto;
+   font-size: 15pt;
+}
+tr {
+
+}
+td {
+   padding-top: 15px;
+   padding-bottom: 15px;
+   text-align: left;
+}
+td.right {
+   text-align: right;
+}
+
+input[type="submit"] {
+   width: 350px;
+}
+input[type="submit"],
+input[type="button"] {
+   background-color: #0588BC;
+   padding: 5px 15px;
+   text-shadow: 1px 1px 2px #000000;
+   color: #d9e0e2;
+   border: none;
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.05);
+   margin-right: 3px;
+   text-decoration: none;
+}
+input[type='submit']:hover,
+input[type='button']:hover {
+   background-color: #d9e0e2;
+   text-shadow: none;
+   color:  #00578A;
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.17);
+   text-decoration: underline;
+}
+
+.err1 {
+   color: red;
+   font-weight: bold;
+}
+
+#sidenote {
+   position: fixed;
+   right: 30px;
+   bottom: 30px;
+}
+
+.fillbox {
+   width: 90%;
+}
+
+.err_gen {
+   color: red;
+   font-size: 9pt;
+   padding-top: 3px;
+}
