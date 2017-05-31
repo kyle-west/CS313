@@ -5,16 +5,16 @@ TRUNCATE reviews, documents, users;
 -- seed our tables with testable data
 INSERT INTO users (username, password, ranking) VALUES
    ('admin','21232f297a57a5a743894a0e4a801fc3',0), -- pass: 'admin'
-   ('test0','5f4dcc3b5aa765d61d8327deb882cf99',4), -- pass: 'password'
-   ('test1','5f4dcc3b5aa765d61d8327deb882cf99',2), -- pass: 'password'
-   ('test2','5f4dcc3b5aa765d61d8327deb882cf99',0), -- pass: 'password'
-   ('test3','5f4dcc3b5aa765d61d8327deb882cf99',5), -- pass: 'password'
-   ('test4','5f4dcc3b5aa765d61d8327deb882cf99',3), -- pass: 'password'
-   ('test5','5f4dcc3b5aa765d61d8327deb882cf99',0), -- pass: 'password'
-   ('test6','5f4dcc3b5aa765d61d8327deb882cf99',4), -- pass: 'password'
-   ('test7','5f4dcc3b5aa765d61d8327deb882cf99',1), -- pass: 'password'
-   ('test8','5f4dcc3b5aa765d61d8327deb882cf99',3), -- pass: 'password'
-   ('test9','5f4dcc3b5aa765d61d8327deb882cf99',0); -- pass: 'password'
+   ('test0','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',4), -- pass: 'password'
+   ('test1','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',2), -- pass: 'password'
+   ('test2','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',0), -- pass: 'password'
+   ('test3','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',5), -- pass: 'password'
+   ('test4','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',3), -- pass: 'password'
+   ('test5','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',0), -- pass: 'password'
+   ('test6','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',4), -- pass: 'password'
+   ('test7','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',1), -- pass: 'password'
+   ('test8','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',3), -- pass: 'password'
+   ('test9','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',0); -- pass: 'password'
 
 INSERT INTO documents (user_id, filename, page_count) VALUES
    ((SELECT id FROM users WHERE username = 'test1'),'historypaper1',14),

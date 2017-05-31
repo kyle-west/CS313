@@ -1,4 +1,11 @@
 <?php
+/**************************************************************
+* CHECK DATABASE 
+* by Kyle West
+*
+* This file is called to retrieve basic boolean info from the
+* database (Created for the signup page to validate the username)
+**************************************************************/
 
 require "db.php";
 

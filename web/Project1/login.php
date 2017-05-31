@@ -6,20 +6,27 @@
    if (isset($_POST["submit"])) {
       $user = htmlspecialchars($_POST['usrn']);
       $pass = htmlspecialchars($_POST['pass']);
+
       require 'db.php';
-      $statement = $db->prepare(
-         'SELECT id FROM users WHERE username =:username AND password = :password'
+      $getpass = $db->prepare(
+         'SELECT id,password FROM users WHERE username =:username'
       );
-      $statement->bindValue(':username', $user, PDO::PARAM_STR);
-      $statement->bindValue(':password', md5($pass), PDO::PARAM_STR);
-      $statement->execute();
-      if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-         $_SESSION['user_id'] = $row["id"];
-         $_SESSION['username'] = $user;
-         header("Location: index.php");
+      $getpass->bindValue(':username', $user, PDO::PARAM_STR);
+      $getpass->execute();
+      if ($passrow = $getpass->fetch(PDO::FETCH_ASSOC)) {
+         $hash = $passrow["password"];
+         if (password_verify($pass, $hash)) {
+            $_SESSION['user_id'] = $passrow["id"];
+            $_SESSION['username'] = $user;
+            header("Location: index.php");
+            die();
+         } else {
+            $err = "Username or password incorrect.";
+         }
       } else {
          $err = "Username or password incorrect.";
       }
+
    }
 ?>
 <!DOCTYPE html>

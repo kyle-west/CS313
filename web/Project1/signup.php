@@ -7,23 +7,31 @@
    if (isset($_POST["submit"])) {
       $user = htmlspecialchars($_POST['usrn']);
       $pass = htmlspecialchars($_POST['pass']);
-      require 'db.php';
-      $statement = $db->prepare(
-         'SELECT id FROM users WHERE username =:username'
-      );
-      $statement->bindValue(':username', $user, PDO::PARAM_STR);
-      $statement->execute();
-      if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-         $errU = "'$user' is taken.";
-      } else if (!empty($user) && !empty($pass)){
-         $newuser = $db->prepare(
-            'INSERT INTO users (username, password) VALUES (:user, :pass)'
+      $pass2 = htmlspecialchars($_POST['passc']);
+      $len = strlen($pass);
+      if ($len < 8) {
+         $err = "Passwords must be a minimum of 8 letters.";
+      } else if ($pass != $pass2) {
+         $err = "Passwords do not match.";
+      } else {
+         require 'db.php';
+         $statement = $db->prepare(
+            'SELECT id FROM users WHERE username =:username'
          );
-         $newuser->bindValue(':user', $user, PDO::PARAM_STR);
-         $newuser->bindValue(':pass', md5($pass));
-         $newuser->execute();
-         header("Location: login.php");
-         die();
+         $statement->bindValue(':username', $user, PDO::PARAM_STR);
+         $statement->execute();
+         if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $errU = "'$user' is taken.";
+         } else if (!empty($user) && !empty($pass)){
+            $newuser = $db->prepare(
+               'INSERT INTO users (username, password) VALUES (:user, :pass)'
+            );
+            $newuser->bindValue(':user', $user, PDO::PARAM_STR);
+            $newuser->bindValue(':pass', password_hash($pass, PASSWORD_DEFAULT));
+            $newuser->execute();
+            header("Location: login.php");
+            die();
+         }
       }
    }
 ?>
@@ -62,7 +70,7 @@
                <tr>
                   <td><label for="pass">Confirm Password:</label></td>
                   <td class="right">
-                     <input id = "pass_confirmed" type="password" value=""
+                     <input id = "pass_confirmed" type="password" value="" name="passc"
                             onblur = "checkPass(this);"/>
                   </td>
                </tr>

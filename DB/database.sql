@@ -6,10 +6,10 @@ DROP TABLE IF EXISTS users;      -- #1 | No dependencies
 
 -- Create the tables in order to establish dependencies
 CREATE TABLE users (
-   id         SERIAL      PRIMARY KEY NOT NULL,
-   username   VARCHAR(50) UNIQUE      NOT NULL,
-   password   CHAR(32)                NOT NULL, -- PHP MD5 hashes to 32 chars (128 bit)
-   ranking    INTEGER     DEFAULT 0   NOT NULL  -- Rank from 0 to 5 stars
+   id         SERIAL       PRIMARY KEY NOT NULL,
+   username   VARCHAR(50)  UNIQUE      NOT NULL,
+   password   VARCHAR(255)             NOT NULL,
+   ranking    INTEGER      DEFAULT 0   NOT NULL  -- Rank from 0 to 5 stars
 );
 
 CREATE TABLE documents (
