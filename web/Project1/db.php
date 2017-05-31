@@ -1,6 +1,10 @@
 <?php
-// initialize session
-session_start();
+/**************************************************************
+* DATABASE CONNECTION
+* Original by Scott Burton, modified by Kyle West
+*
+* Connect to the DB and set a local variable for later access
+**************************************************************/
 
 $db = NULL;
 try {

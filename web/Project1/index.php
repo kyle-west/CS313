@@ -1,19 +1,27 @@
 <?php
+/**************************************************************
+* HOME INDEX PAGE
+* by Kyle West
+*
+* Esstablishes the basic framing of the appication, uses ajax
+* calls to populate viewports with appropriate information
+**************************************************************/
 
-   // initialize session
-   session_start();
-   require 'master.php';
+// initialize session
+session_start();
+require 'master.php';
 
-   if (!isset($_SESSION['username'])) {
-      header("Location: login.php");
-      die();
-   }
+// ensure we are logged in
+if (!isset($_SESSION['username'])) {
+   header("Location: login.php");
+   die();
+}
 
-   // set up "page" we are on
-   $current_page = $_GET['pg'];
-   if (!validPage($current_page)) {
-      $current_page = "docs";
-   }
+// set up "page" we are on
+$current_page = $_GET['pg'];
+if (!validPage($current_page)) {
+   $current_page = "docs"; // default
+}
 
 ?>
 

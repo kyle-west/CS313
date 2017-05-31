@@ -1,3 +1,14 @@
+<?php
+/**************************************************************
+* CONTENT GENERATOR
+* by Kyle West
+*
+* This file loads the content for the main portion of the
+* application. It generates information about the reviews and
+* documents assigned to the current user.
+**************************************************************/
+?>
+
 <table id = "server_table">
 <?php
    // initialize everything
@@ -5,13 +16,17 @@
    require 'db_translate.php';
    session_start();
 
-   $type = $_GET['type'];
+   // ensure we are logged in
+   if (!isset($_SESSION['username'])) {
+      header("Location: login.php");
+      die();
+   }
 
-   // echo $_SESSION["user_id"]." | ".$_SESSION["username"]." | ".$type."<br/><br/><br/>";
+   $type = $_GET['type'];
 
    switch ($type) {
       /*************************************************
-      *
+      * Create and Format the Documents table
       *************************************************/
       case "docs":
          print "<h1 class = 'content_header'> Your Documents, Master ".$_SESSION["username"]."</h1>";
@@ -93,7 +108,7 @@
          break;
 
       /*************************************************
-      *
+      * Create and Format the Reviews table
       *************************************************/
       case "revs":
          print "<h1 class = 'content_header'> The Following Documents Need Your Feedback, Sir ".$_SESSION["username"]."</h1>";
@@ -148,6 +163,12 @@
 ?>
 </table>
 
+
+<?php
+/*************************************************
+* Popup buttons at the bottom of the page
+*************************************************/
+?>
 <div class = "button_row">
    <?php if ($type == "docs") { ?>
       <div class="button plus left" onclick = "buttons.docs.plus();"

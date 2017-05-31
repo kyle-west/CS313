@@ -1,17 +1,31 @@
 <?php
-
+/**************************************************************
+* GET LIST OF ALL PEERS
+* by Kyle West
+*
+* Connect to the DB and retrieve a list of peers generated in
+* a form compatable with our viewing port.
+**************************************************************/
 require "db.php";
-
 session_start();
 
+// ensure we are logged in
 if (!isset($_SESSION['username'])) {
    header("Location: login.php");
    die();
 }
 
+// what viewing context we are looking from
 $view = htmlspecialchars($_GET["view"]);
 
+// Although switch statements are used typically for multiple
+// cases, and this switch only has one, I left it as a switch
+// statement to make additional types of queries later.
 switch ($view) {
+   /***********************************************************
+   * VIEWPORT: the modal menu where the user selects peers to
+   * review their documents.
+   ***********************************************************/
    case "modal_select_peer":
       $statement = $db->prepare(
          'SELECT username, ranking
