@@ -1,39 +1,56 @@
 <?php
-   // initialize session
-   session_start();
+/**************************************************************
+* SIGNUP PAGE
+* by Kyle West
+*
+* Provides interface for the user to create an account. Calls
+* itself to proccess its own form. If valid info, create new
+* user on the DB, and send user to the home page.
+**************************************************************/
+// initialize session
+session_start();
 
-   $err = "";
-   $errU = "";
-   if (isset($_POST["submit"])) {
-      $user = htmlspecialchars($_POST['usrn']);
-      $pass = htmlspecialchars($_POST['pass']);
-      $pass2 = htmlspecialchars($_POST['passc']);
-      $len = strlen($pass);
-      if ($len < 8) {
-         $err = "Passwords must be a minimum of 8 letters.";
-      } else if ($pass != $pass2) {
-         $err = "Passwords do not match.";
-      } else {
-         require 'db.php';
-         $statement = $db->prepare(
-            'SELECT id FROM users WHERE username =:username'
+// Error messages
+$err = "";
+$errU = "";
+
+// Proccess the data for creating a new user
+if (isset($_POST["submit"])) {
+   // collect and sanitize the contents
+   $user = htmlspecialchars($_POST['usrn']);
+   $pass = htmlspecialchars($_POST['pass']);
+   $pass2 = htmlspecialchars($_POST['passc']);
+   $len = strlen($pass);
+
+   if ($len < 8) { // check valid length
+      $err = "Passwords must be a minimum of 8 letters.";
+   } else if ($pass != $pass2) { // check if the passwords are the same
+      $err = "Passwords do not match.";
+   } else {
+      // check if user exists
+      require 'db.php';
+      $statement = $db->prepare(
+         'SELECT username FROM users WHERE username =:username'
+      );
+      $statement->bindValue(':username', $user, PDO::PARAM_STR);
+      $statement->execute();
+
+      // if user exists already, print error message
+      // otherwise insert the new user into the DB
+      if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+         $errU = "'$user' is taken.";
+      } else if (!empty($user) && !empty($pass)){
+         $newuser = $db->prepare(
+            'INSERT INTO users (username, password) VALUES (:user, :pass)'
          );
-         $statement->bindValue(':username', $user, PDO::PARAM_STR);
-         $statement->execute();
-         if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-            $errU = "'$user' is taken.";
-         } else if (!empty($user) && !empty($pass)){
-            $newuser = $db->prepare(
-               'INSERT INTO users (username, password) VALUES (:user, :pass)'
-            );
-            $newuser->bindValue(':user', $user, PDO::PARAM_STR);
-            $newuser->bindValue(':pass', password_hash($pass, PASSWORD_DEFAULT));
-            $newuser->execute();
-            header("Location: login.php");
-            die();
-         }
+         $newuser->bindValue(':user', $user, PDO::PARAM_STR);
+         $newuser->bindValue(':pass', password_hash($pass, PASSWORD_DEFAULT));
+         $newuser->execute();
+         header("Location: login.php");
+         die();
       }
    }
+}
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,19 +1,27 @@
 <?php
-
-print_r($_POST);
-
+/**************************************************************
+* UPDATE DATABASE
+* by Kyle West
+*
+* Connects to the DB and inserts/updates new relevent information.
+**************************************************************/
+// initialize everything
 require "db.php";
-
 session_start();
 
+// ensure logged in
 if (!isset($_SESSION['username'])) {
    header("Location: login.php");
    die();
 }
 
+// what kind of info updates are we making?
 $type = htmlspecialchars($_POST['type']);
 
 switch ($type) {
+   /*************************************************
+   * Insert a new document in the DB owned by user
+   *************************************************/
    case 'add_doc':
       $query = 'INSERT INTO documents (user_id, filename, page_count) VALUES
                 ((SELECT id FROM users WHERE username = :username), :filename, :page_count)';
@@ -26,6 +34,10 @@ switch ($type) {
       $statement->execute();
       break;
 
+   /*************************************************
+   * Change the name of an already exsting document
+   * owned by the current user.
+   *************************************************/
    case 'name_change':
       $query = 'UPDATE documents
                 SET filename = :newname
@@ -40,12 +52,14 @@ switch ($type) {
       $statement->execute();
       break;
 
-
+   /*************************************************
+   * Remove a document owned by the current user.
+   *************************************************/
    case "delete":
       for ($d = 0; $d < count($_POST['del_docs']); $d++) {
             $doc  = htmlspecialchars($_POST['del_docs'][$d]);
 
-            // remove dependancies
+            // remove dependancies first
             $dropdeps = "DELETE FROM reviews WHERE doc_id = :doc;";
             $drop_stmnt = $db->prepare($dropdeps);
             $drop_stmnt->bindValue(':doc', $doc, PDO::PARAM_INT);
@@ -64,7 +78,9 @@ switch ($type) {
       }
       break;
 
-
+   /*************************************************
+   * Add a new peer review instance to the DB
+   *************************************************/
    case "new_review":
       for ($d = 0; $d < count($_POST['send_docs']); $d++) {
          for ($p = 0; $p < count($_POST['peer']); $p++) {
@@ -72,8 +88,8 @@ switch ($type) {
             $peer = htmlspecialchars($_POST['peer'][$p]);
 
             $query = 'INSERT INTO reviews (doc_id, reviewer, status) VALUES
-                        (:doc, (SELECT id FROM users WHERE username = :peer), 1)
-                        ON CONFLICT (doc_id, reviewer) DO NOTHING;';
+                      (:doc, (SELECT id FROM users WHERE username = :peer), 1)
+                      ON CONFLICT (doc_id, reviewer) DO NOTHING;';
 
             $statement = $db->prepare($query);
             $statement->bindValue(':peer', $peer, PDO::PARAM_STR);
@@ -84,6 +100,9 @@ switch ($type) {
       }
       break;
 
+   /*************************************************
+   * Update the status code of a document review
+   *************************************************/
    case "update_status":
       $status  = htmlspecialchars($_POST['status']);
       $doc     = htmlspecialchars($_POST['doc']);
@@ -99,6 +118,10 @@ switch ($type) {
       $statement->execute();
       break;
 
+   /*************************************************
+   * Remove a previously established review assignment
+   * only if the review has finished or not started.
+   *************************************************/
    case "cancel_rev":
       $reviewer = (string)htmlspecialchars($_POST['reviewer']);
       $doc      = (int)htmlspecialchars($_POST['doc']);
@@ -108,7 +131,7 @@ switch ($type) {
                 AND   documents.user_id  = (SELECT id FROM users WHERE username = :username)
                 AND   reviews.reviewer   = (SELECT id FROM users WHERE username = :reviewer)
                 AND   reviews.doc_id     = :doc
-                AND   reviews.status NOT IN (2)';
+                AND   reviews.status NOT IN (2)'; // 2 : "Reivew in Progress"
 
       $statement = $db->prepare($query);
       $statement->bindValue(':reviewer', $reviewer, PDO::PARAM_STR);
