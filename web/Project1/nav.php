@@ -1,6 +1,20 @@
 <?php
-   // initialize session
-   session_start();
+/**************************************************************
+* NAVIGATION BAR
+* by Kyle West
+*
+* The basic frame of the application: the side bar and the
+* main content frame.
+**************************************************************/
+
+// initialize session
+session_start();
+
+// ensure we are logged in
+if (!isset($_SESSION['username'])) {
+   header("Location: login.php");
+   die();
+}
 
 ?>
 <tr>

@@ -1,33 +1,48 @@
 <?php
-   // initialize session
-   session_start();
+/**************************************************************
+* LOGIN PAGE
+* by Kyle West
+*
+* Provides interface for the user to login. Calls itself to
+* proccess its own form. If valid user, set session data with
+* valid information, and send user to the home page.
+**************************************************************/
 
-   $err = "";
-   if (isset($_POST["submit"])) {
-      $user = htmlspecialchars($_POST['usrn']);
-      $pass = htmlspecialchars($_POST['pass']);
+// initialize session
+session_start();
 
-      require 'db.php';
-      $getpass = $db->prepare(
-         'SELECT id,password FROM users WHERE username =:username'
-      );
-      $getpass->bindValue(':username', $user, PDO::PARAM_STR);
-      $getpass->execute();
-      if ($passrow = $getpass->fetch(PDO::FETCH_ASSOC)) {
-         $hash = $passrow["password"];
-         if (password_verify($pass, $hash)) {
-            $_SESSION['user_id'] = $passrow["id"];
-            $_SESSION['username'] = $user;
-            header("Location: index.php");
-            die();
-         } else {
-            $err = "Username or password incorrect.";
-         }
+// Proccess Login submission.
+$err = "";
+if (isset($_POST["submit"])) {
+   // strip user data from script injection
+   $user = htmlspecialchars($_POST['usrn']);
+   $pass = htmlspecialchars($_POST['pass']);
+
+   // poll database
+   require 'db.php';
+   $getpass = $db->prepare(
+      'SELECT id,password FROM users WHERE username =:username'
+   );
+   $getpass->bindValue(':username', $user, PDO::PARAM_STR);
+   $getpass->execute();
+
+   // if the user exists and passwords match, log user in
+   // otherwise ouput standard error message
+   if ($passrow = $getpass->fetch(PDO::FETCH_ASSOC)) {
+      $hash = $passrow["password"];
+      if (password_verify($pass, $hash)) {
+         $_SESSION['user_id'] = $passrow["id"];
+         $_SESSION['username'] = $user;
+         header("Location: index.php");
+         die();
       } else {
          $err = "Username or password incorrect.";
       }
-
+   } else {
+      $err = "Username or password incorrect.";
    }
+
+}
 ?>
 <!DOCTYPE html>
 <html>
