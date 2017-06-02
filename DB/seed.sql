@@ -4,7 +4,6 @@ TRUNCATE reviews, documents, users;
 
 -- seed our tables with testable data
 INSERT INTO users (username, password, ranking) VALUES
-   ('admin','21232f297a57a5a743894a0e4a801fc3',0), -- pass: 'admin'
    ('test0','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',4), -- pass: 'password'
    ('test1','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',2), -- pass: 'password'
    ('test2','$2y$10$bxLQfD.RmX6U.Ai2axmmn.jOyoXRYa8IyG2ts.aI/FptD6yF/Gdle',0), -- pass: 'password'

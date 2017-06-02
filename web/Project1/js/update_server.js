@@ -44,12 +44,19 @@ function remove_selected_from_db() {
 * Sends request and updates page following completion.
 ***************************************************************/
 function add_document_to_db() {
-   // initialze data string
-   var data = "type=add_doc";
+   // collect info
+   var name  = document.getElementById('new_doc_name').value;
+   var count = document.getElementById('new_doc_pc').value;
 
-   // append data string with relevant info
-   data += "&name=" + document.getElementById('new_doc_name').value;
-   data += "&pcount=" + document.getElementById('new_doc_pc').value;
+   // ensure data exists
+   if (name.length == 0 || count.length == 0) {
+      console.log("ADD statement NOT sent");
+      // dont let modal turn off until fill it out
+      return;
+   }
+
+   // initialze data string
+   data = "type=add_doc&name=" + name + "&pcount=" + count;
 
    // send the request to the server
    var req = new Request("update.php", { post: data });

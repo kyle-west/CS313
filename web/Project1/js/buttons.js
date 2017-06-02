@@ -56,7 +56,7 @@ var buttons = {
             "<h2>Upload a file to Peerfessional!</h2>" +
             "<form id = 'form_add'>" +
                "Filename: <input type = 'text' id = 'new_doc_name'/> "+
-               "Number of Pages: <input type = 'number' id = 'new_doc_pc' min='1'/>"+
+               "Number of Pages: <input type = 'number' id = 'new_doc_pc' min='1' value ='1'/>"+
                "<br/><br/>"+
                "<input type = 'button' name = 'add' value = 'Upload' class = 'right' onclick = 'add_document_to_db();'/>" +
                "<input type = 'button' name = 'add' value = 'Cancel' class = 'right' onclick = 'modalOff();'/>" +
